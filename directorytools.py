@@ -80,12 +80,17 @@ def create_directory(directory):
         mkdir(directory)
 
 def clear_directory(directory):
-    create_directory(directory)
+    if not path.exists(directory):
+        return
     for root, dirs, files in walk(directory):
         for f in files:
             unlink(path.join(root, f))
         for d in dirs:
             rmtree(path.join(root, d))
+
+def clear_or_create(directory):
+    create_directory(directory)
+    clear_directory(directory)
 
 #add other directory name cleaning operations as they come up
 def clean_dir_name(directory):
